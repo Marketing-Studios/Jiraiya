@@ -235,8 +235,34 @@ Planned improvements:
 8. Add risk-control simulation.
 9. Add broker execution only after paper-trading validation is complete.
 
-## Disclaimer
+## Disclaimer And Liability
 
-This project is for education, research, backtesting, and product presentation.
+This project is for **education, research, historical-data analysis, backtesting, and product presentation only**.
 
-Markets are risky. Options trading can lead to significant losses. Use this project responsibly and only with capital you can afford to lose.
+It is **not** a live-trading system, not financial advice, not investment advice, and not a recommendation to buy, sell, hold, or trade any instrument.
+
+Backtesting has serious limitations:
+
+- Backtest results are not guaranteed.
+- Backtest results are not 100% accurate.
+- Historical performance does not guarantee future performance.
+- Data may be delayed, incomplete, adjusted, missing, or incorrect.
+- Broker data, Yahoo Finance data, Dhan data, Kite data, and local calculations can all contain errors.
+- Strategy outputs, chart signals, P&L, win rate, drawdown, and trade tables are only research outputs.
+- Slippage, brokerage, taxes, liquidity, spread, order rejection, latency, outages, and real market execution may differ from backtest assumptions.
+
+Marketing Studios, the repository owner, and contributors are **not responsible** for:
+
+- trading losses
+- financial decisions
+- incorrect backtest outputs
+- inaccurate signals
+- software bugs
+- data-provider errors
+- broker/API failures
+- missed trades
+- unexpected trades
+- misuse of this project
+- any direct or indirect damages caused by using this repository
+
+Use this project at your own risk. Always verify results independently before making any financial decision. Options trading and leveraged trading can lead to significant losses, including loss of capital.
