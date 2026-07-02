@@ -2,13 +2,14 @@
 
 Jiraiya AI Trader is presented as an automated options-trading system for NSE F&O markets, with a focus on NIFTY, BankNifty, and FinNifty trading workflows.
 
-This repository currently contains a static HTML investor/product presentation for the project:
+This repository contains two parts:
 
 ```text
-index.html
+index.html              Static investor/product presentation
+trading_web/            Streamlit trading dashboard prototype
 ```
 
-The presentation describes the intended trading system, risk controls, paper-trading validation, architecture, setup flow, and launch-readiness checklist.
+The presentation describes the intended trading system, risk controls, paper-trading validation, architecture, setup flow, and launch-readiness checklist. The Streamlit app is a visual dashboard prototype for charting market data and displaying trading controls.
 
 > Important: Trading involves financial risk. This repository is not financial advice, investment advice, or a guarantee of profit. Use paper trading and independent review before considering any live deployment.
 
@@ -31,15 +32,25 @@ The presentation highlights:
 
 ## Current Repository Contents
 
-At the moment, this repository is a static presentation site.
+Current structure:
 
 ```text
 .
 +-- index.html
++-- requirements.txt
++-- trading_web/
+|   +-- app.py
+|   +-- assets/
+|   |   +-- psy_bg.png
+|   |   `-- styles.css
+|   `-- components/
+|       +-- chart.py
+|       +-- data.py
+|       `-- layout.py
 `-- README.md
 ```
 
-The actual Python bot source files referenced inside the presentation, such as runtime scripts, configuration files, validation scripts, and launch checklists, are not included in this repository at this time.
+The included `trading_web` app is a dashboard/prototype layer. The full live-trading bot runtime, broker execution engine, secrets, account-specific configuration, and production launch checklist are not included in this repository.
 
 ## How To View Locally
 
@@ -69,6 +80,38 @@ Then open:
 ```text
 http://localhost:8000
 ```
+
+## Run The Streamlit Dashboard
+
+Install Python dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Start the dashboard:
+
+```bash
+streamlit run trading_web/app.py
+```
+
+The app uses `yfinance` to load chart data for symbols such as:
+
+```text
+RELIANCE.NS
+TCS.NS
+INFY.NS
+```
+
+The current dashboard includes:
+
+- Symbol input
+- Intraday and daily modes
+- Candlestick chart
+- Demo buy/sell signal markers
+- P&L summary placeholders
+- Strategy/control panel
+- Custom dark/cosmic visual theme
 
 ## Suggested GitHub Pages Deployment
 
@@ -151,14 +194,14 @@ These should be added to `.gitignore` before any runtime code is committed.
 
 The repository can become more useful by adding the actual runtime project files in stages:
 
-1. Add Python source code in a `src/` folder.
-2. Add a safe paper-trading mode.
-3. Add example configuration files without secrets.
-4. Add automated tests for strategy and risk logic.
-5. Add a pre-production validation script.
-6. Add documentation for DHAN API setup.
-7. Add screenshots of the dashboard.
-8. Add deployment and launch-day checklists.
+1. Convert dashboard placeholders into real paper-trading state.
+2. Add example configuration files without secrets.
+3. Add automated tests for strategy and risk logic.
+4. Add a pre-production validation script.
+5. Add documentation for DHAN API setup.
+6. Add screenshots of the dashboard.
+7. Add deployment and launch-day checklists.
+8. Add the broker execution layer only after risk controls are tested.
 
 Suggested future structure:
 

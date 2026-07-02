@@ -1,0 +1,187 @@
+/* ========================================
+   Uchiha AI Trader - Full Cosmic Background
+   ======================================== */
+
+/* Reset & Base Setup */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  
+  /* Dark purple fallback if image doesn't load */
+  background-color: #1a0d2e;
+  
+  /* Main background image - cosmic purple nebula */
+  background-image: url("./assets/psy_bg.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  
+  /* Font smoothing */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure root container also fills viewport */
+#root,
+#app,
+.app-container {
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Mobile optimization - fixed backgrounds can cause issues */
+@media screen and (max-width: 1024px) {
+  body {
+    background-attachment: scroll;
+  }
+}
+
+/* Tablet devices */
+@media screen and (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+    background-size: cover;
+  }
+}
+
+/* Optional: Add subtle overlay for better text readability */
+/* Uncomment if your UI text needs more contrast */
+/*
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  z-index: 0;
+}
+*/
+
+/* Ensure all content appears above background */
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ========================================
+   Cyan/Teal Border Styling (matching bot UI)
+   ======================================== */
+
+/* Container boxes with cyan borders like your bot */
+.panel,
+.section,
+.card {
+  border: 2px solid #00d9ff;
+  border-radius: 4px;
+  background: rgba(10, 5, 20, 0.85);
+  backdrop-filter: blur(10px);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Button styling matching bot's cyan theme */
+.btn-primary,
+button.primary {
+  background: transparent;
+  border: 2px solid #00d9ff;
+  color: #00d9ff;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover,
+button.primary:hover {
+  background: rgba(0, 217, 255, 0.2);
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.5);
+}
+
+/* Section headers with cyan text */
+h1, h2, h3,
+.section-title {
+  color: #00d9ff;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+/* Text color matching dark theme */
+body,
+p,
+span,
+label {
+  color: #e0e0e0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Input fields with dark theme */
+input,
+select,
+textarea {
+  background: rgba(20, 10, 35, 0.9);
+  border: 1px solid #00d9ff;
+  color: #e0e0e0;
+  padding: 0.5rem;
+  border-radius: 3px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #00ffff;
+  box-shadow: 0 0 8px rgba(0, 217, 255, 0.4);
+}
+
+/* ========================================
+   Chart/Canvas Area Styling
+   ======================================== */
+
+/* Chart container with semi-transparent dark background */
+.chart-container,
+canvas {
+  background: rgba(15, 5, 25, 0.7) !important;
+  border: 1px solid rgba(0, 217, 255, 0.3);
+  border-radius: 4px;
+}
+
+/* ========================================
+   Scrollbar Styling (Optional)
+   ======================================== */
+
+/* Dark scrollbar matching theme */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 5, 20, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 217, 255, 0.5);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 217, 255, 0.7);
+}
