@@ -1,42 +1,28 @@
 # Jiraiya AI Trader
 
-Jiraiya AI Trader is presented as an automated options-trading system for NSE F&O markets, with a focus on NIFTY, BankNifty, and FinNifty trading workflows.
+Jiraiya AI Trader is a trading research project for building, testing, and presenting automated NSE-market trading workflows.
 
-This repository contains two parts:
+The repository currently includes:
 
-```text
-index.html              Static investor/product presentation
-trading_web/            Streamlit Strategy Lab and backtesting dashboard
-```
+- A static investor/product presentation in `index.html`
+- A Streamlit Strategy Lab in `trading_web/`
+- Historical-data support through Yahoo Finance, with optional Dhan and Kite data connectors
+- A safe backtesting workflow for testing strategies before any live trading work
 
-The presentation describes the intended trading system, risk controls, paper-trading validation, architecture, setup flow, and launch-readiness checklist. The Streamlit app is a Strategy Lab for creating simple rules, loading historical data, and backtesting before any live trading.
+> Important: This project is not financial advice. Trading involves risk. Backtest results, paper-trading results, and presentation claims do not guarantee future profit.
 
-> Important: Trading involves financial risk. This repository is not financial advice, investment advice, or a guarantee of profit. Use paper trading and independent review before considering any live deployment.
+## Current Status
 
-## Project Summary
+This repo is currently a **research, presentation, and backtesting repo**.
 
-Jiraiya AI Trader is positioned as a Python-based automated options-trading bot that integrates with the DHAN broker API for market data, order placement, trade tracking, and position management.
+It does **not** currently include a production live-order execution engine inside this GitHub repository. The Streamlit app is intentionally backtest-focused and does not place live orders.
 
-The presentation highlights:
-
-- Automated NSE F&O options trading workflows
-- DHAN API integration
-- Multi-profile account support
-- Paper trading and live trading modes
-- Position-level risk controls
-- Daily loss and profit limits
-- Trailing stop-loss logic
-- Trade persistence and crash recovery
-- Dashboard-based monitoring
-- Pre-production validation checklist
-
-## Current Repository Contents
-
-Current structure:
+## Repository Structure
 
 ```text
 .
 +-- index.html
++-- README.md
 +-- requirements.txt
 +-- .env.example
 +-- trading_web/
@@ -50,57 +36,79 @@ Current structure:
 |       +-- data.py
 |       +-- layout.py
 |       `-- strategy.py
-`-- README.md
 ```
 
-The included `trading_web` app is a backtesting and dashboard layer. The full live broker execution engine, secrets, account-specific configuration, and production launch checklist are not included in this repository.
+## What Each Part Does
 
-## How To View Locally
+### `index.html`
 
-Clone the repository:
+A static presentation page for the Jiraiya AI Trader concept. It describes the larger product vision, including:
+
+- Automated NSE F&O trading workflows
+- Dhan API integration concept
+- Risk-management design
+- Paper-trading validation
+- Launch-readiness checklist
+- System architecture overview
+
+Open it directly in a browser or host it with GitHub Pages.
+
+### `trading_web/`
+
+A Streamlit Strategy Lab for researching and backtesting strategy rules.
+
+It supports:
+
+- Symbol input
+- Yahoo Finance, Dhan, or Kite as data-source options
+- Intraday and daily modes
+- Candlestick charts
+- Strategy-generated buy/sell markers
+- Backtest metrics
+- Trade table export as CSV
+
+Included strategies:
+
+- Moving Average Crossover
+- RSI Reversion
+- Breakout
+
+## Run Locally
+
+Clone the repo:
 
 ```bash
 git clone https://github.com/Marketing-Studios/Jiraiya.git
 cd Jiraiya
 ```
 
-Open `index.html` directly in your browser.
-
-On Windows PowerShell:
-
-```powershell
-Start-Process .\index.html
-```
-
-Or run a simple local web server:
-
-```bash
-python -m http.server 8000
-```
-
-Then open:
-
-```text
-http://localhost:8000
-```
-
-## Run The Strategy Lab
-
-Install Python dependencies:
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Start the dashboard:
+Start the Strategy Lab:
 
 ```bash
 streamlit run trading_web/app.py
 ```
 
-The app can use Yahoo Finance by default, or optional DHAN/Kite credentials for historical data.
+## Quick Windows Commands
 
-Yahoo symbols:
+PowerShell:
+
+```powershell
+Set-Location "D:\work\Jiraiya"
+python -m pip install -r requirements.txt
+streamlit run trading_web/app.py
+```
+
+## Default Data Source
+
+The app works out of the box with Yahoo Finance.
+
+Example symbols:
 
 ```text
 RELIANCE.NS
@@ -108,32 +116,27 @@ TCS.NS
 INFY.NS
 ```
 
-The Strategy Lab includes:
+Yahoo Finance is useful for quick research, but broker data should be used before serious paper-trading validation.
 
-- Symbol input
-- Yahoo, DHAN, or Kite data-source selector
-- Intraday and daily backtesting modes
-- Candlestick chart
-- Strategy builder
-- Moving Average Crossover strategy
-- RSI Reversion strategy
-- Breakout strategy
-- Buy/sell markers generated by the selected strategy
-- P&L, return, win-rate, and drawdown metrics
-- Trade table export as CSV
-- Custom dark/cosmic visual theme
+## Optional Broker Data Setup
 
-## Optional Broker Data Credentials
+Broker credentials are optional and should only be stored locally.
 
-Create a local `.env` file from the example:
+Create a local `.env` file:
 
 ```bash
 cp .env.example .env
 ```
 
-Then fill only the provider you want to use.
+On Windows PowerShell:
 
-Dhan:
+```powershell
+Copy-Item .env.example .env
+```
+
+Then fill the provider you want.
+
+### Dhan
 
 ```text
 DHAN_CLIENT_ID=your_client_id
@@ -143,7 +146,7 @@ DHAN_EXCHANGE_SEGMENT=NSE_EQ
 DHAN_INSTRUMENT_TYPE=EQUITY
 ```
 
-Kite:
+### Kite / Zerodha
 
 ```text
 KITE_API_KEY=your_api_key
@@ -151,13 +154,60 @@ KITE_ACCESS_TOKEN=your_access_token
 KITE_EXCHANGE=NSE
 ```
 
-Never commit `.env` or real broker credentials.
+Never commit `.env` or real credentials.
 
-## Suggested GitHub Pages Deployment
+## Strategy Lab Workflow
 
-Because this is currently a static HTML site, it can be hosted with GitHub Pages.
+1. Choose a data source.
+2. Enter a symbol.
+3. Select intraday or daily data.
+4. Choose a strategy.
+5. Tune strategy parameters.
+6. Set capital, quantity, and brokerage.
+7. Click **Run Backtest**.
+8. Review chart markers, P&L, return, win rate, drawdown, and trades.
 
-Recommended settings:
+The app is designed for research first. A strategy should be tested across multiple symbols, periods, and market regimes before it is trusted.
+
+## What This Repo Does Not Do Yet
+
+The current Streamlit app does not:
+
+- Place live orders
+- Manage live broker positions
+- Run automated live trading
+- Guarantee profitable signals
+- Store real account credentials
+- Replace broker-side risk controls
+
+Live order placement should only be added after tests, paper trading, risk limits, and manual override flows are complete.
+
+## Safety Rules
+
+Before any live-trading feature is added:
+
+- Keep real credentials out of Git.
+- Use `.env` locally and `.env.example` publicly.
+- Use paper trading first.
+- Add tests for every risk rule.
+- Keep manual broker access ready.
+- Start with the smallest possible size.
+- Verify stop-loss, target, and exit behavior independently.
+- Assume APIs, internet, and local machines can fail.
+
+The `.gitignore` is configured to ignore common secret files such as:
+
+```text
+.env
+*.key
+*.pem
+credentials.json
+.streamlit/secrets.toml
+```
+
+## GitHub Pages
+
+The static presentation can be hosted using GitHub Pages:
 
 ```text
 Settings -> Pages -> Deploy from a branch
@@ -165,105 +215,28 @@ Branch: main
 Folder: /root
 ```
 
-After GitHub Pages is enabled, the site should be available at a URL similar to:
+Expected URL format:
 
 ```text
 https://marketing-studios.github.io/Jiraiya/
 ```
 
-## System Described In The Presentation
+## Roadmap
 
-The included presentation describes a larger trading system with these planned or referenced components:
+Planned improvements:
 
-### Strategy Engine
-
-- Multi-factor market analysis
-- Signal confidence scoring
-- Trend, momentum, volume, and volatility checks
-- Configurable strategy logic for research and paper-trading validation
-
-### Risk Management
-
-- Daily profit target
-- Daily maximum loss
-- Position sizing limits
-- Stop-loss controls
-- Trailing stop-loss
-- Manual override and broker-app backup
-
-### Execution Layer
-
-- DHAN API order placement
-- Option-chain and strike selection
-- Trade entry and exit automation
-- Paper order simulation
-- Live order support after validation
-
-### Recovery And Monitoring
-
-- Trade state persistence
-- Crash recovery
-- Backup history
-- Real-time dashboard
-- Notifications and profile switching
-
-## Safety Notes
-
-Before any live trading system is added to this repository, the following should be treated as mandatory:
-
-- Never commit `.env` files or API tokens.
-- Never commit broker credentials.
-- Use paper trading first.
-- Start with the smallest possible position size.
-- Add automated tests for every risk-control rule.
-- Keep manual broker access available during market hours.
-- Verify order placement, exit logic, and crash recovery independently.
-
-Recommended secret file pattern:
-
-```text
-.env
-*.key
-*.pem
-credentials.json
-```
-
-These should be added to `.gitignore` before any runtime code is committed.
-
-## Recommended Roadmap
-
-The repository can become more useful by adding the actual runtime project files in stages:
-
-1. Convert dashboard placeholders into real paper-trading state.
-2. Add example configuration files without secrets.
-3. Add automated tests for strategy and risk logic.
-4. Add a pre-production validation script.
-5. Add documentation for DHAN API setup.
-6. Add screenshots of the dashboard.
-7. Add deployment and launch-day checklists.
-8. Add the broker execution layer only after risk controls are tested.
-
-Suggested future structure:
-
-```text
-Jiraiya/
-+-- README.md
-+-- index.html
-+-- .gitignore
-+-- requirements.txt
-+-- .env.example
-+-- src/
-|   +-- strategy/
-|   +-- broker/
-|   +-- risk/
-|   +-- dashboard/
-|   `-- storage/
-+-- tests/
-`-- docs/
-```
+1. Add more strategy templates.
+2. Add proper paper-trading state.
+3. Add tests for all strategy calculations.
+4. Add Dhan/Kite historical-data examples.
+5. Add dashboard screenshots.
+6. Add a trade journal.
+7. Add portfolio-level backtesting.
+8. Add risk-control simulation.
+9. Add broker execution only after paper-trading validation is complete.
 
 ## Disclaimer
 
-This project is for educational, research, and product-presentation purposes unless and until audited live-trading code is included and independently validated.
+This project is for education, research, backtesting, and product presentation.
 
-Options trading is risky. Past performance, paper-trading results, or backtesting results do not guarantee future returns. Use this project responsibly and only with capital you can afford to lose.
+Markets are risky. Options trading can lead to significant losses. Use this project responsibly and only with capital you can afford to lose.
